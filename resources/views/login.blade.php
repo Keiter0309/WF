@@ -105,7 +105,10 @@
                 <p class="text-red-500 text-sm">{{ $errors->first('password') }}</p>
             @endif
             </div>
-            <div class="text-right text-gray-400 hover:underline hover:text-blue-500 transition-all duration-300 mb-3">
+            <div class="text-left text-gray-400 hover:underline hover:text-blue-500 transition-all duration-300 ease-in-out">
+                <a href="{{route('signup')}}">Don't have an account? Register</a>
+            </div>
+            <div class="text-left text-gray-400 hover:underline hover:text-blue-500 transition-all duration-300 mb-3">
                 <a href="{{route('forget.password')}}">Forgot your password?</a>
             </div>
             <button type="submit">Login</button>

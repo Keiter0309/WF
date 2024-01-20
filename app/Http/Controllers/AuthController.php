@@ -134,4 +134,17 @@ class AuthController extends Controller
         session()->put('cart', $cart);
         return redirect()->back()->with('success', 'Wine removed from cart successfully!');
     }
+
+    public function getCartDetails () {
+        $cart = session()-get('cart', []);
+        $totalPrice = 0;
+        $totalItems = 0;
+
+        foreach($cart as $id => $details) {
+            $totalPrice += $details['price'] * $details['quantity'];
+            $totalItems += $details['quantity'];
+        }
+
+        return ['totalPrice' => $totalPrice, 'totalItems' => $totalItems];
+    }
 }

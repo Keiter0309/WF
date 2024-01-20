@@ -190,7 +190,7 @@
             </svg>
         </button>
                 <form action="{{route('search')}}">
-                    @csrfh
+                    @csrf
                     <input type="text" name="query" id="search" placeholder="Search..." class="border focus:outline-none focus:ring focus:ring-indigo-500 rounded-full py-2 px-3 w-full">
                     <button type="submit" class="float-right mt-3 rounded-full bg-[#b5a46d] transition-all duration-300 hover:bg-slate-400 p-3 hover:text-white">Search</button>
                 </form>
@@ -230,7 +230,7 @@
             }
         </style>
         <div class="w-full sm:w-1/2 sm:pl-40">
-            <img src="{{ $wine->picture }}" alt="{{ $wine->name }}" class="w-64 h-64 object-contain rounded-lg shadow-md transform transition duration-500 ease-in-out translate-y-10 opacity-0 animate-fade-in-up">
+            <img src="{{ asset('storage/' . $wine->picture) }}" alt="{{ $wine->name }}" class="w-64 h-64 object-contain rounded-lg shadow-md transform transition duration-500 ease-in-out translate-y-10 opacity-0 animate-fade-in-up">
         </div>
     </div>
 

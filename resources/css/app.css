@@ -251,14 +251,6 @@ body {
 }
 
 .story-wp {}
-#contact {
-    position: absolute;
-}
-.contact-item {
-    position: absolute;
-    top: 20%;
-
-}
 .email-contact input {
     color: rgb(0, 0, 0);
     background-color: #ffffff;

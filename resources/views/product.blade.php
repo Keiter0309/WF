@@ -16,7 +16,7 @@
             @foreach ($wines as $wine)
                 <div
                     class="bg-white shadow-md rounded-lg overflow-hidden hover:cursor-pointer transition-all duration-300 group relative">
-                    <img src="{{$wine->picture}}" alt="Wine" style="width: 7rem"
+                    <img src="{{ asset('storage/public/uploads'. $wine->picture) }}" alt="Wine" style="width: 7rem"
                          class="object-cover mx-auto w-full h-72 transform hover:scale-105">
                     <div
                         class="bg-gray-50 p-6 absolute bottom-0 shadow-lg transform transition-transform duration-300 group-hover:translate-y-0 translate-y-full">

@@ -9,13 +9,14 @@
     <link rel="icon" href="{{ asset('images/3.png') }}">
     @vite('resources/css/app.css')
 </head>
-<body>
+<body class="font-['laila']">
+@include('navigation')
 <div class="container mx-auto px-4 py-8">
     <div class="flex flex-col md:flex-row md:justify-between md:items-center">
         <h1 class="text-2xl font-bold my-4">Shopping Cart</h1>
-        <button class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
+        <a href="{{route('checkout')}}" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
             Checkout
-        </button>
+        </a>
     </div>
     @foreach(session('cart') as $id => $details)
         <div class="mt-8">
@@ -99,53 +100,55 @@
         const modal = document.getElementById('modal');
         const closeModal = document.getElementById('closeModal');
 
-        if (modal.style.display === 'none') {
-            modal.classList.remove('modal-closed');
-            modal.classList.add('modal-open');
+        if (modal) {
+            if (modal.style.display === 'none') {
+                modal.classList.remove('modal-closed');
+                modal.classList.add('modal-open');
+            }
+        } else {
+            console.error('No element with id "modal" found');
         }
 
-        closeModal.addEventListener('click', function () {
-            modal.classList.remove('modal-open');
-            modal.classList.add('modal-closed');
+        if (closeModal) {
+            closeModal.addEventListener('click', function () {
+                if (modal) {
+                    modal.classList.remove('modal-open');
+                    modal.classList.add('modal-closed');
+                }
+            });
+        } else {
+            console.error('No element with id "closeModal" found');
+        }
+
+        const incrementButtons = document.querySelectorAll('.increment');
+        const decrementButtons = document.querySelectorAll('.decrement');
+    
+        incrementButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                const quantityElement = this.parentElement.querySelector('.quantity');
+                const priceElement = this.parentElement.nextElementSibling;
+                const pricePerItem = parseFloat(priceElement.dataset.price);
+    
+                const quantity = parseInt(quantityElement.innerText, 10) + 1;
+                quantityElement.innerText = quantity;
+    
+                priceElement.innerText = '$' + (pricePerItem * quantity).toFixed(2);
+            });
+        });
+    
+        decrementButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                const quantityElement = this.parentElement.querySelector('.quantity');
+                const priceElement = this.parentElement.nextElementSibling;
+                const pricePerItem = parseFloat(priceElement.dataset.price);
+    
+                const quantity = Math.max(1, parseInt(quantityElement.innerText, 10) - 1);
+                quantityElement.innerText = quantity;
+    
+                priceElement.innerText = '$' + (pricePerItem * quantity).toFixed(2);
+            });
         });
     }
-    // window.onload = function () {
-    //     // Get all the increment and decrement buttons
-    //     const incrementButtons = document.querySelectorAll('.increment');
-    //     const decrementButtons = document.querySelectorAll('.decrement');
-    //
-    //     // Add event listeners to the increment buttons
-    //     incrementButtons.forEach(function (button) {
-    //         button.addEventListener('click', function () {
-    //             const quantityElement = this.parentElement.querySelector('.quantity');
-    //             const priceElement = this.parentElement.nextElementSibling;
-    //             const pricePerItem = parseFloat(priceElement.dataset.price);
-    //
-    //             // Increment the quantity
-    //             const quantity = parseInt(quantityElement.innerText, 10) + 1;
-    //             quantityElement.innerText = quantity;
-    //
-    //             // Update the total price for this item
-    //             priceElement.innerText = '$' + (pricePerItem * quantity).toFixed(2);
-    //         });
-    //     });
-    //
-    //     // Add event listeners to the decrement buttons
-    //     decrementButtons.forEach(function (button) {
-    //         button.addEventListener('click', function () {
-    //             const quantityElement = this.parentElement.querySelector('.quantity');
-    //             const priceElement = this.parentElement.nextElementSibling;
-    //             const pricePerItem = parseFloat(priceElement.dataset.price);
-    //
-    //             // Decrement the quantity (but don't go below 1)
-    //             const quantity = Math.max(1, parseInt(quantityElement.innerText, 10) - 1);
-    //             quantityElement.innerText = quantity;
-    //
-    //             // Update the total price for this item
-    //             priceElement.innerText = '$' + (pricePerItem * quantity).toFixed(2);
-    //         });
-    //     });
-    // }
 </script>
 </body>
 </html>
